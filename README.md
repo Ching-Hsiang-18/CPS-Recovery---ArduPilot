@@ -18,7 +18,7 @@ Pull the pre-built image from Docker Hub:
 docker pull camel180/ardupilot-criu-gui:latest
 ```
 
-> **Note:** If you just built the image locally with the tag `ardupilot-criu-gui:v4`, you can skip this step.
+> **Note:** If you intend to build the image locally using the Dockerfile, please refer to the [Manual Build Guide](doc/manual_build.md).
 
 ---
 
@@ -44,7 +44,7 @@ docker run -it --privileged --net=host --gpus all \
   --env="NVIDIA_DRIVER_CAPABILITIES=all" \
   --env="QT_X11_NO_MITSHM=1" \
   --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-  --name ardupilot_v4 \
+  --name ardupilot \
   camel180/ardupilot-criu-gui:latest /bin/bash
 ```
 
@@ -66,7 +66,7 @@ Keep Terminal A open. Open a **new terminal window** on your host machine to con
 
 1. **Enter the Running Container:**
 ```bash
-docker exec -it ardupilot_v4 /bin/bash
+docker exec -it ardupilot /bin/bash
 ```
 
 
@@ -88,9 +88,10 @@ param set FRAME_TYPE 1
 
 ---
 
-## 3. Basic Control Commands
+## 3. Basic Control Commands & Stopping
 
-After setting the parameters above, you can use the following commands in the MAVProxy console to test the drone:
+### MAVLink Commands
+Perform these commands in **Terminal B (MAVProxy)** to control the drone:
 
 * **Switch Mode:**
 ```bash
@@ -109,14 +110,47 @@ arm throttle
 takeoff 10
 ```
 
+### Stopping the Simulation
+To fully stop the simulation, you must stop the processes in **both terminals:**
+
+1. **Terminal B (ArduPilot):** Press ```Ctrl+C``` to stop the flight controller.
+2. **Terminal A (Gazebo):** Press ```Ctrl+C``` to stop the physics engine.
 
 
 ---
 
-## 4. Stopping and Restarting
+## 4. Exiting, Restarting, and Cleanup
 
-* **To Stop:** Press `Ctrl+C` in the terminals or type `exit`.
-* **To Cleanup:** Before running `docker run` again, ensure you remove the old container:
+### Leaving the Container
+
+To log out of the container shell and return to your host terminal, simply type:
+
 ```bash
-docker rm -f ardupilot_v4
+exit
+```
+
+> **Note:** If you exit from **Terminal A**, the container will stop running.
+
+### Restarting an Existing Container
+
+If you have exited the container and it has stopped, you don't need to run ```docker run``` command again. You can simply start the existing one:
+
+1. **Start the background container:**
+
+```bash
+docker start ardupilot
+```
+
+2. **Enter the container again:**
+
+```bash
+docker exec -it ardupilot /bin/bash
+```
+
+### Removing the Container
+
+If you want to delete the container completely (e.g., to start fresh with a new ```docker run``` command), use:
+
+```bash
+docker rm -f ardupilot
 ```
