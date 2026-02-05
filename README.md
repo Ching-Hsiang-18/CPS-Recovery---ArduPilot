@@ -2,11 +2,13 @@
 
 This repository provides a fully integrated Docker environment for **ArduPilot SITL** and **Gazebo Harmonic**, featuring **CRIU** (Checkpoint/Restore In Userspace) support.
 
-**Key Features:**
+<!-- **Key Features:**
 
 * **Fixes & Optimizations:** Solved `MAVProxy` path issues, environment variable conflicts, and permission errors.
 * **GUI Support:** Full 3D rendering support for Gazebo using host GPU passthrough.
-* **Manual Control:** Full control over simulation parameters and startup sequence.
+* **Manual Control:** Full control over simulation parameters and startup sequence. -->
+
+This README provides a guide to launch the container and start a simple simulation. See [Recovery Demo](doc/recovery_demo.md) for how to run a CRIU-based recovery demo.
 
 ---
 
