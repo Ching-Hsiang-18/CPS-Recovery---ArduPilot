@@ -30,7 +30,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     libxkbcommon-x11-0 libgl1-mesa-glx libxcb-cursor0 libxcb-util1 \
     libcanberra-gtk-module libcanberra-gtk3-module \
     # 其他常用庫
-    rapidjson-dev libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+    rapidjson-dev libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev iptables\
     && rm -rf /var/lib/apt/lists/*
 
 # 3. 安裝 Gazebo Harmonic (官方源，版本 v8)
